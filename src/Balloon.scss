@@ -1,0 +1,64 @@
+$colorLeftBody: white;
+$colorLeftLine: gray;
+$colorRightBody: cyan;
+$colorRightLine: blue;
+
+@mixin arrow($dir, $pos) {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  top: 20px;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  @if $dir == right {
+    @if $pos == before {
+      right: -15px;
+      border-left: 15px solid $colorLeftLine;
+    }
+    @if $pos == after {
+      right: -12px;
+      border-left: 15px solid $colorLeftBody;
+    }
+  }
+  @if $dir == left {
+    @if $pos == before {
+      left: -15px;
+      border-right: 15px solid $colorRightLine;
+    }
+    @if $pos == after {
+      left: -12px;
+      border-right: 15px solid $colorRightBody;
+    }
+  }
+}
+
+.balloon {
+  position: relative;
+  padding: 20px;
+  border-radius: 15px;
+  padding: 7px 10px;
+  margin: 1.5em 0;
+}
+.balloon.right {
+  background-color: $colorLeftBody;
+  border: 2px solid $colorLeftLine;
+}
+.balloon.left {
+  background-color: $colorRightBody;
+  border: 2px solid $colorRightLine;
+}
+
+.balloon.left::before {
+  @include arrow(left, before);
+}
+.balloon.left::after {
+  @include arrow(left, after);
+}
+.balloon.right::before {
+  @include arrow(right, before);
+}
+.balloon.right::after {
+  @include arrow(right, after);
+}
